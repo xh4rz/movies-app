@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import conectarDB from '../lib/dbConnect';
 import Movie from '../models/Movie';
+import Link from 'next/link';
 
 export default function Home({ movies }) {
 	console.log(movies);
@@ -14,6 +15,9 @@ export default function Home({ movies }) {
 
 			<main className="cotainer m-2">
 				<h1>Movies</h1>
+				<Link href="/new">
+					<a className="btn btn-primary w-100 mb-2">Agregar</a>
+				</Link>
 				{movies.map(({ _id, title, plot }) => (
 					<div className="card mb-2" key={_id}>
 						<div className="card-body">
