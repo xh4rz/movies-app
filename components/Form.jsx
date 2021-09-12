@@ -24,7 +24,8 @@ const Form = ({ formData, forNewMovie = true }) => {
 		if (forNewMovie) {
 			postData(form);
 		} else {
-			//  EDITAR DATA
+			//  editar data
+			console.log("Me diste click editar");
 		}
 	};
 
@@ -80,7 +81,7 @@ const Form = ({ formData, forNewMovie = true }) => {
 					onChange={handleChange}
 				/>
 				<button className="btn btn-primary w-100" type="submit">
-					Agregar
+					{forNewMovie ? 'Agregar' : 'Editar'}
 				</button>
 				<Link href="/">
 					<a className="btn btn-warning w-100 my-2">Volver...</a>
