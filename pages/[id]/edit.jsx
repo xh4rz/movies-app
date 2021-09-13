@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import Form from '../../components/Form';
 import useSWR from 'swr';
 import { useRouter } from 'next/dist/client/router';
@@ -21,7 +20,7 @@ const fetcher = async (url) => {
 	return data;
 };
 
-const editMovie = () => {
+const EditMovie = () => {
 	const router = useRouter();
 	const { id } = router.query;
 
@@ -55,4 +54,4 @@ const editMovie = () => {
 	);
 };
 
-export default editMovie;
+export default EditMovie;

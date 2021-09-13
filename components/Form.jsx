@@ -12,6 +12,13 @@ const Form = ({ formData, forNewMovie = true }) => {
 		plot: formData.plot
 	});
 
+	// useEffect(() => {
+	// 	setForm({
+	// 		title: formData.title,
+	// 		plot: formData.plot
+	// 	});
+	// }, [formData]);
+
 	const [message, setMessage] = useState([]);
 
 	const handleChange = (e) => {
@@ -24,8 +31,39 @@ const Form = ({ formData, forNewMovie = true }) => {
 		if (forNewMovie) {
 			postData(form);
 		} else {
-			//  editar data
-			console.log("Me diste click editar");
+			putData(form);
+		}
+	};
+
+	const putData = async (form) => {
+		setMessage([]);
+		const { id } = router.query;
+		try {
+			const res = await fetch(`/api/movie/${id}`, {
+				method: 'PUT',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify(form)
+			});
+
+			const data = await res.json();
+			console.log(data);
+
+			if (!data.success) {
+				for (const key in data.error.errors) {
+					let error = data.error.errors[key];
+					setMessage((oldmenssage) => [
+						...oldmenssage,
+						{ message: error.message }
+					]);
+				}
+			} else {
+				setMessage([]);
+				router.push('/');
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 

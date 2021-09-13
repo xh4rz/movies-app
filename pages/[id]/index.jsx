@@ -1,11 +1,10 @@
 import conectarDB from '../../lib/dbConnect';
 import Movie from '../../models/Movie';
 import Link from 'next/link';
+import { useRouter } from 'next/dist/client/router';
 
 const MoviePage = ({ success, error, movie }) => {
-	console.log(success);
-	console.log(error);
-	console.log(movie);
+	const router = useRouter();
 
 	if (!success) {
 		return (
@@ -17,6 +16,17 @@ const MoviePage = ({ success, error, movie }) => {
 			</div>
 		);
 	}
+
+	const deleteData = async (id) => {
+		try {
+			await fetch(`/api/movie/${id}`, {
+				method: 'DELETE'
+			});
+			router.push('/');
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<div className="container">
@@ -33,7 +43,12 @@ const MoviePage = ({ success, error, movie }) => {
 					<Link href={`/${movie._id}/edit`}>
 						<a className="btn btn-warning btn-sm me-2">Editar</a>
 					</Link>
-					<button className="btn btn-danger btn-sm">Eliminar</button>
+					<button
+						className="btn btn-danger btn-sm"
+						onClick={() => deleteData(movie._id)}
+					>
+						Eliminar
+					</button>
 				</div>
 			</div>
 		</div>
